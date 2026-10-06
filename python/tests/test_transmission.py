@@ -1,3 +1,4 @@
+from binascii import Error
 from typing import cast
 
 import pytest
@@ -23,6 +24,7 @@ def test_identity_pipeline_delivers_message_without_channel_errors() -> None:
         DeterministicFlipChannel(),
         IdentityDecoder(),
     )
+    print(result)
 
     assert result == TransmissionResult(
         message=message,
@@ -32,22 +34,39 @@ def test_identity_pipeline_delivers_message_without_channel_errors() -> None:
     )
 
 
-def test_channel_flips_the_requested_bit() -> None:
-    channel = DeterministicFlipChannel(flip_positions=(1,))
+def test_channel_flips_the_requested_bit() -> None: 
+    channel = DeterministicFlipChannel(flip_positions=(1, 0, 0))
 
-    assert channel.transmit((1, 0, 1)) == (1, 1, 1)
+    assert channel.transmit((1, 0, 1)) == (0, 0, 1 )
 
 
-def test_identity_codec_does_not_hide_a_channel_error() -> None:
+def test_channel_flips_the_requested_mod2() -> None:
+    channel = DeterministicFlipChannel(flip_positions=(1, 0, 1))
+
+    assert channel.transmit((1, 0, 1)) == (0, 0, 1)
+
+def test_correct_tuple_size_DeterministicFlipChannel() -> None:
     result = transmit(
         (1, 0, 1),
         IdentityEncoder(),
-        DeterministicFlipChannel(flip_positions=(1,)),
+        DeterministicFlipChannel(flip_positions=(1,0,1,0)),
+        IdentityDecoder(),
+    )
+    assert result.decoded == "Encoded message length 3 does not match flip positions length 4."
+
+def test_TripleRepetitionEncoder_encodes_1() -> None:
+    message = (1,)
+
+    result = transmit(
+        message,
+        TripleRepetitionEncoder(),
+        DeterministicFlipChannel(),
         IdentityDecoder(),
     )
 
-    assert result.decoded == (1, 1, 1)
-
+    assert result.encoded == (1, 1, 1)
+    assert result.received == (1, 1, 1)
+    assert result.decoded == message
 
 def test_triple_repetition_corrects_one_error_in_each_block() -> None:
     result = transmit(

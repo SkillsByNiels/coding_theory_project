@@ -10,4 +10,8 @@ def transmit(
     channel: Channel,
     decoder: Decoder,
 ) -> TransmissionResult:
-    raise NotImplementedError("Implement the message transmission pipeline.")
+    return TransmissionResult(message,
+                              encoder.encode(message),
+                              channel.transmit(encoder.encode(message)),
+                              decoder.decode(channel.transmit(encoder.encode(message)))
+    )

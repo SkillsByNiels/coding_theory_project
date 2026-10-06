@@ -5,9 +5,9 @@ from ..models import Bits
 
 class IdentityEncoder:
     def encode(self, message: Bits) -> Bits:
-        raise NotImplementedError("Implement the identity encoder.")
+        return message
 
 
 class TripleRepetitionEncoder:
     def encode(self, message: Bits) -> Bits:
-        raise NotImplementedError("Implement the triple-repetition encoder.")
+        return tuple(bit for bit in message for _ in range(3))
