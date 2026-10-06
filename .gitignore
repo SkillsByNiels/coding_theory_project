@@ -1,0 +1,21 @@
+# Lean 4 / Lake directories
+build/
+.lake/
+lake-packages/
+
+# Python / Visualizer directories
+__pycache__/
+venv/
+.env
+*.pyc
+
+# Quarto output and Jupyter files
+_site/
+.quarto/
+.ipynb_checkpoints/
+
+# Python test and packaging artifacts
+.pytest_cache/
+*.egg-info/
+dist/
+wheelhouse/

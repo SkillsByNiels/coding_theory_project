@@ -1,0 +1,20 @@
+---
+title: "Coding Theory"
+---
+
+# Message source to receiver
+
+This project explores error-correcting codes from source to receiver. Lean 4
+will define the mathematical objects and verify their properties, Python and
+Plotly will provide interactive visualizations, and Quarto will bring the
+explanations and demonstrations together.
+
+## Project areas
+
+- **Lean 4:** bit vectors, encoders, decoders, Hamming distances, and proofs.
+- **Python and Plotly:** interactive visualizations of codewords, distances,
+  and error-correction paths.
+- **Quarto:** integrated documentation and presentations.
+
+The Lean implementation will follow test-driven development: expected
+properties and proof tests are written before their implementations.

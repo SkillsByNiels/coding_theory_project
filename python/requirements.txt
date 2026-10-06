@@ -1,0 +1,5 @@
+narwhals==2.26.0
+packaging==26.3
+plotly==7.1.0
+jupyter==1.1.1
+pytest==8.4.1

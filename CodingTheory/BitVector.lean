@@ -1,0 +1,3 @@
+namespace CodingTheory
+
+end CodingTheory
